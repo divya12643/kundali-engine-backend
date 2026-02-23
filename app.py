@@ -27,15 +27,15 @@ def calculate():
     earth = planets['earth']
 
     bodies = {
-        "sun": planets['sun'],
-        "moon": planets['moon'],
-        "mars": planets['mars'],
-        "mercury": planets['mercury'],
-        "venus": planets['venus'],
-        "jupiter": planets['jupiter'],
-"saturn": planets['saturn']
+    "sun": planets['sun'],
+    "moon": planets['moon'],
+    "mars": planets['mars'],
+    "mercury": planets['mercury'],
+    "venus": planets['venus'],
+    "jupiter": planets['jupiter'],
+    "saturn": planets['saturn']
+}
     }
-
     results = {}
 
     for name, body in bodies.items():
