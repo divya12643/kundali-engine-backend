@@ -26,16 +26,16 @@ def calculate():
 
     earth = planets['earth']
 
-    bodies = {
+   bodies = {
     "sun": planets['sun'],
     "moon": planets['moon'],
-    "mars": planets['mars'],
-    "mercury": planets['mercury'],
-    "venus": planets['venus'],
-    "jupiter": planets['jupiter'],
-    "saturn": planets['saturn']
+    "mars": planets['mars barycenter'],
+    "mercury": planets['mercury barycenter'],
+    "venus": planets['venus barycenter'],
+    "jupiter": planets['jupiter barycenter'],
+    "saturn": planets['saturn barycenter']
 }
-    }
+
     results = {}
 
     for name, body in bodies.items():
