@@ -5,7 +5,13 @@ from skyfield.framelib import ecliptic_frame
 app = Flask(__name__)
 
 ts = load.timescale()
-load('de421.bsp')
+planets = None  # Delay loading
+
+def get_planets():
+    global planets
+    if planets is None:
+        planets = load('de421.bsp')
+    return planets
 
 @app.route('/')
 def home():
@@ -23,16 +29,17 @@ def calculate():
 
     t = ts.utc(year, month, day, hour)
 
-    earth = planets['earth']
+    eph = get_planets()
+    earth = eph['earth']
 
     bodies = {
-        "sun": planets['sun'],
-        "moon": planets['moon'],
-        "mars": planets['mars barycenter'],
-        "mercury": planets['mercury barycenter'],
-        "venus": planets['venus barycenter'],
-        "jupiter": planets['jupiter barycenter'],
-        "saturn": planets['saturn barycenter']
+        "sun": eph['sun'],
+        "moon": eph['moon'],
+        "mars": eph['mars'],
+        "mercury": eph['mercury'],
+        "venus": eph['venus'],
+        "jupiter": eph['jupiter barycenter'],
+        "saturn": eph['saturn barycenter']
     }
 
     results = {}
@@ -43,7 +50,7 @@ def calculate():
         results[name] = lon_ecl.degrees % 360
 
     # Rahu / Ketu (node approx)
-    moon_state = earth.at(t).observe(planets['moon']).apparent()
+    moon_state = earth.at(t).observe(eph['moon']).apparent()
     lon_ecl, lat_ecl, distance = moon_state.frame_latlon(ecliptic_frame)
     rahu = (lon_ecl.degrees - 180) % 360
     ketu = (rahu + 180) % 360
@@ -51,8 +58,7 @@ def calculate():
     results["rahu"] = rahu
     results["ketu"] = ketu
 
-    # Ascendant (simple LST method)
-    observer = earth + Topos(latitude_degrees=lat, longitude_degrees=lon)
+    # Ascendant (LST)
     gmst = t.gmst
     lst = (gmst * 15 + lon) % 360
     ascendant = lst
