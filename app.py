@@ -5,7 +5,7 @@ from skyfield.framelib import ecliptic_frame
 app = Flask(__name__)
 
 ts = load.timescale()
-planets = load('de440.bsp')
+load('de421.bsp')
 
 @app.route('/')
 def home():
