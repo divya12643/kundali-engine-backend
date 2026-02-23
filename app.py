@@ -32,8 +32,8 @@ def calculate():
         "mars": planets['mars'],
         "mercury": planets['mercury'],
         "venus": planets['venus'],
-        "jupiter": planets['jupiter barycenter'],
-        "saturn": planets['saturn barycenter']
+        "jupiter": planets['jupiter'],
+"saturn": planets['saturn']
     }
 
     results = {}
