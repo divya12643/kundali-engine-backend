@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 import swisseph as swe
 
 app = Flask(__name__)
-
 swe.set_sid_mode(swe.SIDM_LAHIRI)
 
 @app.route('/')
