@@ -1,7 +1,10 @@
-from flask import Flask, request, jsonify
-import swisseph as swe
+from flask import Flask
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Backend Working"
 swe.set_sid_mode(swe.SIDM_LAHIRI)
 
 @app.route('/')
