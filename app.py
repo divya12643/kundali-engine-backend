@@ -1,11 +1,6 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "Backend Working"
-swe.set_sid_mode(swe.SIDM_LAHIRI)
 
 @app.route('/')
 def home():
@@ -13,6 +8,11 @@ def home():
 
 @app.route('/calculate')
 def calculate():
+
+    import swisseph as swe
+
+    # Set Lahiri inside route
+    swe.set_sid_mode(swe.SIDM_LAHIRI)
 
     year = int(request.args.get('year'))
     month = int(request.args.get('month'))
@@ -42,7 +42,6 @@ def calculate():
 
     planets["ketu"] = (planets["rahu"] + 180) % 360
 
-    # Correct Ascendant
     cusps, ascmc = swe.houses_ex(jd, lat, lon, b'P', swe.FLG_SIDEREAL)
     ascendant = ascmc[0] % 360
 
